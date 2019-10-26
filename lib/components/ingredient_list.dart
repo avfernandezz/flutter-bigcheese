@@ -8,17 +8,19 @@ class IngredientList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<IngredientData>(
       builder: (context, ingredientData, child) {
-        return ListView.builder(
-          itemBuilder: (context, index) {
-            final ingredient = ingredientData.ingredients[index];
-            return IngredientItem(
-              imageSrc: ingredient.imageSrc,
-              quantity: ingredient.quantity,
-              name: ingredient.name,
-              price: ingredient.price,
-            );
-          },
-          itemCount: ingredientData.ingredientCount,
+        return Flexible(
+          child: ListView.builder(
+            itemBuilder: (context, index) {
+              final ingredient = ingredientData.ingredients[index];
+              return IngredientItem(
+                imageSrc: ingredient.imageSrc,
+                quantity: ingredient.quantity,
+                name: ingredient.name,
+                price: ingredient.price,
+              );
+            },
+            itemCount: ingredientData.ingredientCount,
+          ),
         );
       },
     );
