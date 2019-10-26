@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const kBlueColor = Color(0xFF323A52);
 const kMainTextColor = Color(0xff242529);
 const kIngColor = Color(0xFFFFC50C);
+const kPriceColor = Color(0xFFB9B9B9);
 
 const kIngredientText = TextStyle(
   color: kMainTextColor,
