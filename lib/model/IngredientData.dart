@@ -14,6 +14,10 @@ class IngredientData extends ChangeNotifier {
     return UnmodifiableListView(_ingredients);
   }
 
+  Ingredient getByName(String name) {
+    return _ingredients.firstWhere((ingredient) => ingredient.name == name);
+  }
+
   void updateIngredient(Ingredient ingredient) {
     ingredient.updateQuantity(ingredient.quantity);
     notifyListeners();
@@ -21,5 +25,11 @@ class IngredientData extends ChangeNotifier {
 
   int get ingredientCount {
     return _ingredients.length;
+  }
+
+  String get totalAmount {
+    return _ingredients
+        .fold(0, (total, current) => total + (current.price * current.quantity))
+        .toString();
   }
 }

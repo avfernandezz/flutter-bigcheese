@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_counter/flutter_counter.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_bigcheese/components/counter_container.dart';
 import 'package:restaurant_bigcheese/constants.dart';
+import 'package:restaurant_bigcheese/model/IngredientData.dart';
 
 class IngredientItem extends StatefulWidget {
   String imageSrc;
@@ -23,47 +24,47 @@ class _IngredientItemState extends State<IngredientItem> {
   @override
   Widget build(BuildContext context) {
     String imageAsset = widget.imageSrc;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: kIngColor,
-              border: Border.all(color: kIngColor),
-              borderRadius: BorderRadius.all(
-                Radius.circular(20),
+    return Consumer<IngredientData>(builder: (context, ingredientData, child) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                color: kIngColor,
+                border: Border.all(color: kIngColor),
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'images/$imageAsset',
+                  height: 60,
+                ),
               ),
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'images/$imageAsset',
-                height: 60,
-              ),
+            Text(
+              widget.name,
+              style: kIngredientText,
             ),
-          ),
-          Text(
-            widget.name,
-            style: kIngredientText,
-          ),
-          CounterContainer(
-            quantity: 0,
-            onPress: () {
-              setState(() {
-                widget.quantity++;
-                print(widget.quantity);
-              });
-            },
-          ),
-          Text(
-            '\$' + widget.price.toString(),
-            style: kPriceText,
-          ),
-        ],
-      ),
-    );
+            CounterContainer(
+              quantity: 0,
+              name: widget.name,
+              onPress: () {},
+            ),
+            Text(
+              (ingredientData.getByName(widget.name).price *
+                      ingredientData.getByName(widget.name).quantity)
+                  .toString(),
+              style: kPriceText,
+            ),
+          ],
+        ),
+      );
+    });
   }
 }
 

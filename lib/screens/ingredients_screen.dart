@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:restaurant_bigcheese/components/dish_card.dart';
-import 'package:restaurant_bigcheese/components/ingredient_item.dart';
 import 'package:restaurant_bigcheese/components/ingredient_list.dart';
 import 'package:restaurant_bigcheese/constants.dart';
+import 'package:restaurant_bigcheese/model/IngredientData.dart';
 import 'package:restaurant_bigcheese/screens/checkout_screen.dart';
 
 class IngredientsScreen extends StatelessWidget {
   static const String id = 'ingredients_screen';
   @override
   Widget build(BuildContext context) {
+    var ingredients = Provider.of<IngredientData>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -127,7 +129,7 @@ class IngredientsScreen extends StatelessWidget {
                                 width: 40,
                               ),
                               Text(
-                                '\$44',
+                                '\$' + ingredients.totalAmount,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
